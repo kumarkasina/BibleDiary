@@ -1,0 +1,14 @@
+{
+  "movies":[
+    {
+      "title":"Droid Runner 2049",
+      "posterUri":"droid_runner"
+
+    },
+    {
+      "title":"Wonder Droid",
+      "posterUri":"wonder_droid"
+
+    }
+  ]
+}

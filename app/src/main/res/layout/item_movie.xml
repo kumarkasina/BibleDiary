@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="movie"
+            type="com.example.jesusapp.data.model.Movie" />
+        <variable
+            name="position"
+            type="int" />
+        <variable
+            name="listener"
+            type="com.example.jesusapp.listener.OnItemClickListener" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:padding="5dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:onClick="@{()->listener.onItemClick(movie, position)}"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:padding="50dp"
+            android:src="@drawable/ic_video_camera"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:glideImg="@{  movie.poster_path}"
+            />
+
+        <LinearLayout
+            android:background="#80000000"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_gravity="bottom"
+                android:text="@{movie.title}"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:textColor="@android:color/white"
+                android:layout_gravity="bottom"
+                android:text="@{movie.release_date}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>
