@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/noactionbar"
-    tools:context=".ui.SplashScreen.SpalshAcitvity">
+    tools:context=".ui.QrCode.QRCodeActivity">
+
 
     <ImageView
-        android:scaleType="fitXY"
-        android:src="@drawable/splashimg"
+        android:src="@drawable/qrcodesample"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ImageView>
 

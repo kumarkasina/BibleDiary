@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/noactionbar">
-        <activity android:name=".ui.BiblePage.BibleActivity"></activity>
+        <activity android:name=".ui.DonorsList.DonorsActivity"></activity>
+        <activity android:name=".ui.QrCode.QRCodeActivity" />
+        <activity android:name=".ui.BiblePage.BibleActivity" />
         <activity android:name=".ui.DiaryActivity" />
         <activity android:name=".ui.SplashScreen.SpalshAcitvity">
             <intent-filter>

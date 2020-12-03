@@ -46,7 +46,7 @@ class MoviesPagerAdapter(fragmentManager: FragmentManager, private val movies: A
     if (position==0)
     return  SettingsFragment()
     else if(position ==1)
-      return SettingsFragment()
+      return Settings2Fragment()
 
       return  MovieFragment.newInstance(movies[position])
   }

@@ -27,7 +27,7 @@ class HomeAdapter(onItemClickListener: OnItemClickListener<Users>, type: Int) : 
         else
             return UserViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.horizontal_item, parent, false)
+                    .inflate(R.layout.donor_item, parent, false)
             )
 
     }

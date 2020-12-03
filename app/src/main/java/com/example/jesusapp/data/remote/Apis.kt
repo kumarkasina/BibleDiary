@@ -19,4 +19,10 @@ interface Apis {
     @GET("/api/users?page=2")
     suspend fun getData() : DataModel
 
+    @GET("/api/users?page=1")
+    suspend fun getDatas() : Response<DataModel>
+
+
+
+
 }
