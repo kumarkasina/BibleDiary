@@ -2,17 +2,15 @@ package com.example.jesusapp.ui.BiblePage
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jesusapp.R
@@ -24,13 +22,11 @@ import com.example.jesusapp.ui.HomeDetail.HomeAdapter2
 import com.example.jesusapp.ui.home.SharedHomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_bible.*
-import kotlinx.android.synthetic.main.activity_prayer_detail.*
 import kotlinx.android.synthetic.main.activity_prayer_detail.horizontal_recycler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -68,7 +64,7 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<Users>,DatePicker
 
 
         changeDate()
-        prepareMediaPlayer()
+        //prepareMediaPlayer()
 
         img_left.setOnClickListener(View.OnClickListener {
 
@@ -108,15 +104,23 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<Users>,DatePicker
             startActivity(shareIntent)
         }
         img_sound.setOnClickListener {
-            mediaPlayer.start()
-            Toast.makeText(this,"media playing", Toast.LENGTH_SHORT).show()
+            prepareMediaPlayer()
+            Toast.makeText(this, "media playing", Toast.LENGTH_SHORT).show()
+        }
+
+        mediaPlayer.setOnPreparedListener {
+            Log.e("start", "music")
+            it.start()
         }
     }
 
     private fun prepareMediaPlayer() {
         try {
 
-            mediaPlayer.setDataSource(this, Uri.parse("http://vprbbc.streamguys.net:80/vprbbc24.mp3"))
+            mediaPlayer.setDataSource(
+                this,
+                Uri.parse("http://vprbbc.streamguys.net:80/vprbbc24-mobile.mp3")
+            )
             mediaPlayer.prepareAsync()
 
         }catch (e:Exception){
@@ -159,31 +163,47 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<Users>,DatePicker
     }
     fun observeUsersInDatabase(){
         CoroutineScope(Dispatchers.Main).launch {
-            usersDao.getAllUsersDistinctUntilChanged().collect {
-                    users -> showData(users)
-                Log.e("count","1")
+            usersDao.getAllUsersDistinctUntilChanged().collect { users ->
+                showData(users)
+                Log.e("count", "1")
             }
         }
     }
+
     private fun showData(data: List<Users>) {
-        Log.e("size","${data.size}")
+        Log.e("size", "${data.size}")
         horizontal_recycler.visibility = View.VISIBLE
         adapter.submitList(data)
     }
 
+    private fun stoping() {
+        if (mediaPlayer != null)
+            if (mediaPlayer?.isPlaying) {
+                mediaPlayer.stop()
+                mediaPlayer.release()
+            }
+
+    }
+
 
     override fun onItemClick(item: Users, position: Int) {
-        prayer_text.text =  item?.first_name
+        prayer_text.text = item?.first_name
     }
 
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
 
-        Log.e("Date",""+p1+"-"+p2+"-"+p3)
-        calendar.set(Calendar.YEAR,p1)
-        calendar.set(Calendar.MONDAY,p2)
-        calendar.set(Calendar.DAY_OF_MONTH,p3)
-        txt_date.text= formatter.format(calendar.time)
+        Log.e("Date", "" + p1 + "-" + p2 + "-" + p3)
+        calendar.set(Calendar.YEAR, p1)
+        calendar.set(Calendar.MONDAY, p2)
+        calendar.set(Calendar.DAY_OF_MONTH, p3)
+        txt_date.text = formatter.format(calendar.time)
 
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (mediaPlayer?.isPlaying)
+            mediaPlayer.stop()
     }
 }

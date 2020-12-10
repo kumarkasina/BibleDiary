@@ -18,15 +18,12 @@ import com.example.jesusapp.db.UserDao
 import com.example.jesusapp.listener.OnItemClickListener
 import com.example.jesusapp.ui.BiblePage.BibleActivity
 import com.example.jesusapp.ui.HomeDetail.PrayerDetailActivity
-
-import com.example.jesusapp.utils.ConnectionType.*
-import com.example.jesusapp.utils.NetworkMonitorUtil
-
+import com.example.jesusapp.ui.about.AboutAcitvity
+import com.example.jesusapp.ui.directors.DirectorsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -44,7 +41,7 @@ private const val ARG_PARAM2 = "param2"
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment(),OnItemClickListener<Users>{
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -181,12 +178,16 @@ class SettingsFragment : Fragment(),OnItemClickListener<Users>{
 
     override fun onItemClick(item: Users, position: Int) {
         Log.e("clicked", "$position")
-        if(position ==0)
-        {
+        if (position == 0) {
             val intent = Intent(activity, BibleActivity::class.java)
             startActivity(intent)
-        }else {
-
+        } else if (position == 2) {
+            val intent = Intent(activity, AboutAcitvity::class.java)
+            startActivity(intent)
+        } else if (position == 3) {
+            val intent = Intent(activity, DirectorsActivity::class.java)
+            startActivity(intent)
+        } else {
             val intent = Intent(activity, PrayerDetailActivity::class.java)
             startActivity(intent)
         }

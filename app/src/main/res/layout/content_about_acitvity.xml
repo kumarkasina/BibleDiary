@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="4"
+            android:src="@drawable/violet_banner"></ImageView>
+
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_action_home"></ImageView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/about"
+        android:textColor="@color/black"
+        android:textSize="16sp"></TextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gridbag"></View>
+
+    <TextView
+        android:id="@+id/txt_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/dummy_content"></TextView>
+</LinearLayout>

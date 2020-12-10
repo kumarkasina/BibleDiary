@@ -1,11 +1,23 @@
 <resources>
     <string name="app_name">బైబిల్</string>
     <string name="title">బైబిల్</string>
+    <string name="about">గురించి</string>
+    <string name="director_name">స్టంప్ ఆంథోనీ మేరీ క్లారెట్</string>
+    <string name="dob">1807-1870</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_prayer_detail">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">ప్రధాని మోదీ రాక; కేసీఆర్‌ అవసరం లేదు నటుల మధ్య చిచ్చుపెట్టిన గ్రేటర్‌ పోరు ఆ మూడు తప్పిదాలతోనే టీమిండియా మూల్యం!  </string>
+    <string name="dummy_content">ప్రధాని మోదీ రాక; కేసీఆర్‌ అవసరం లేదు నటుల మధ్య చిచ్చుపెట్టిన గ్రేటర్‌ పోరు ఆ మూడు తప్పిదాలతోనే టీమిండియా మూల్యం!
+        ్రధాని మోదీ రాక; కేసీఆర్‌ అవసరం లేదు నటుల మధ్య చిచ్చుపెట్టిన గ్రేటర్‌ పోరు ఆ మూడు తప్పిదాలతోనే టీమిండియా మూల్యం!
+        ్రధాని మోదీ రాక; కేసీఆర్‌ అవసరం లేదు నటుల మధ్య చిచ్చుపెట్టిన గ్రేటర్‌ పోరు ఆ మూడు తప్పిదాలతోనే టీమిండియా మూల్యం!
+
+
+
+            ప్రధాని మోదీ రాక; కేసీఆర్‌ అవసరం లేదు నటుల మధ్య చిచ్చుపెట్టిన గ్రేటర్‌ పోరు ఆ మూడు తప్పిదాలతోనే టీమిండియా మూల్యం!
+        ్రధాని మోదీ రాక; కేసీఆర్‌ అవసరం లేదు నటుల మధ్య చిచ్చుపెట్టిన గ్రేటర్‌ పోరు ఆ మూడు తప్పిదాలతోనే టీమిండియా మూల్యం!
+        ్రధాని మోదీ రాక; కేసీఆర్‌ అవసరం లేదు నటుల మధ్య చిచ్చుపెట్టిన గ్రేటర్‌ పోరు ఆ మూడు తప్పిదాలతోనే టీమిండియా మూల్యం!
+    </string>
     <string-array name="teluguarray">
         <item> బిగ్‌బాస్‌ : అఖిల్‌పై రాహుల్‌ షాకింగ్‌ కామెంట్స్‌</item>
         <item> నటుల మధ్య చిచ్చుపెట్టిన గ్రేటర్‌ పోరు ‌</item>
@@ -13,4 +25,13 @@
         <item> ఏడుపాయల క్షేత్రంలో చోరీ ‌</item>
         <item> గెలిపిస్తే హైదరాబాద్‌ పేరు మారుస్తాం : యోగి‌</item>
     </string-array>
+    <string name="title_activity_about_acitvity">AboutAcitvity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

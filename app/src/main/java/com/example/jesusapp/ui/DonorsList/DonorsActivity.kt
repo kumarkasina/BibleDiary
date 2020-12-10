@@ -1,8 +1,8 @@
 package com.example.jesusapp.ui.DonorsList
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jesusapp.R
@@ -11,7 +11,6 @@ import com.example.jesusapp.listener.OnItemClickListener
 import com.example.jesusapp.ui.home.HomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_donors.*
-
 
 
 @AndroidEntryPoint
@@ -23,12 +22,7 @@ class DonorsActivity : AppCompatActivity(), OnItemClickListener<Users> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_donors)
 
-
         initData()
-
-
-
-
     }
 
     private fun initData() {

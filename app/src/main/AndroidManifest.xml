@@ -15,7 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/noactionbar">
-        <activity android:name=".ui.DonorsList.DonorsActivity"></activity>
+        <activity android:name=".ui.directors.DirectorsActivity"></activity>
+        <activity
+            android:name=".ui.about.AboutAcitvity"
+            android:label="@string/title_activity_about_acitvity"
+            android:theme="@style/noactionbar.NoActionBar" />
+        <activity android:name=".ui.DonorsList.DonorsActivity" />
         <activity android:name=".ui.QrCode.QRCodeActivity" />
         <activity android:name=".ui.BiblePage.BibleActivity" />
         <activity android:name=".ui.DiaryActivity" />

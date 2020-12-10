@@ -17,9 +17,7 @@ import com.example.jesusapp.data.remote.MainActivityViewState
 import com.example.jesusapp.db.UserDao
 import com.example.jesusapp.listener.OnItemClickListener
 import com.example.jesusapp.ui.DonorsList.DonorsActivity
-import com.example.jesusapp.ui.HomeDetail.PrayerDetailActivity
 import com.example.jesusapp.ui.QrCode.QRCodeActivity
-
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.coroutines.CoroutineScope
@@ -178,14 +176,26 @@ class Settings2Fragment : Fragment(),OnItemClickListener<Users>{
 
     override fun onItemClick(item: Users, position: Int) {
         Log.e("clicked", "$position")
-        if(position ==0)
-        {
+        if (position == 0) {
             val intent = Intent(activity, QRCodeActivity::class.java)
             startActivity(intent)
-        }else {
+        } else if (position == 1) {
 
             val intent = Intent(activity, DonorsActivity::class.java)
             startActivity(intent)
+        } else if (position == 2) {
+
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "https://play.google.com/store/apps/details?id=claretian.biblediary"
+                )
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 }
