@@ -20,6 +20,7 @@ import com.example.jesusapp.ui.BiblePage.BibleActivity
 import com.example.jesusapp.ui.HomeDetail.PrayerDetailActivity
 import com.example.jesusapp.ui.about.AboutAcitvity
 import com.example.jesusapp.ui.directors.DirectorsActivity
+import com.example.jesusapp.ui.latestnews.NewsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.coroutines.CoroutineScope
@@ -186,6 +187,9 @@ class SettingsFragment : Fragment(),OnItemClickListener<Users>{
             startActivity(intent)
         } else if (position == 3) {
             val intent = Intent(activity, DirectorsActivity::class.java)
+            startActivity(intent)
+        } else if (position == 4) {
+            val intent = Intent(activity, NewsActivity::class.java)
             startActivity(intent)
         } else {
             val intent = Intent(activity, PrayerDetailActivity::class.java)

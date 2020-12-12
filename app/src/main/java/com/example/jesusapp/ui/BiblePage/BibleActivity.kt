@@ -53,6 +53,7 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<Users>,DatePicker
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bible)
+        txt_marq1.setSelected(true)
         mediaPlayer= MediaPlayer()
         observeViewState()
         observeUsersInDatabase()

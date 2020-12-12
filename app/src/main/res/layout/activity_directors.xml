@@ -32,14 +32,12 @@
         android:layout_gravity="center"
         android:scaleType="fitCenter"
         android:src="@drawable/main_logo"></ImageView>
-
     <TextView
         android:id="@+id/txt_director"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/director_name"></TextView>
-
     <TextView
         android:id="@+id/txt_director_dob"
         android:layout_width="match_parent"
@@ -47,7 +45,6 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/dob"></TextView>
-
     <TextView
         android:id="@+id/txt_dir_info"
         android:layout_width="match_parent"
