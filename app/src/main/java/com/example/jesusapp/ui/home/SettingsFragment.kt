@@ -135,7 +135,7 @@ class SettingsFragment : Fragment(),OnItemClickListener<Users>{
 
     private fun showData(data: List<Users>) {
         removeProgressDialog()
-        menu_list.visibility = View.VISIBLE
+        menu_list?.visibility = View.VISIBLE
 
         adapter.submitList(data)
     }

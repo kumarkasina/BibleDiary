@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/noactionbar">
-        <activity android:name=".ui.latestnews.NewsActivity"></activity>
+        <activity android:name=".ui.directors.ShowDirector"></activity>
+        <activity android:name=".ui.latestnews.NewsActivity" />
         <activity android:name=".ui.directors.DirectorsActivity" />
         <activity
             android:name=".ui.about.AboutAcitvity"
