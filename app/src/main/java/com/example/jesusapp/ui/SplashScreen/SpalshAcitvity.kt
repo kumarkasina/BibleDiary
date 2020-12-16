@@ -1,15 +1,11 @@
 package com.example.jesusapp.ui.SplashScreen
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import com.example.jesusapp.R
-import com.example.jesusapp.ui.HomeDetail.PrayerDetailActivity
-import com.example.jesusapp.ui.MainActivity
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.jesusapp.ui.latestnews.NewsActivity
 
 class SpalshAcitvity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +16,7 @@ class SpalshAcitvity : AppCompatActivity() {
             // This method will be executed once the timer is over
             // Start your app main activity
 
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, NewsActivity::class.java)
             startActivity(intent)
 
             // close this activity

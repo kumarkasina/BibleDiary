@@ -24,6 +24,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     }
 
     val differ = AsyncListDiffer(this, diffCallback)
+    private var onBottomReachedListener: OnBottomReachedListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         return ArticleViewHolder(
@@ -34,6 +35,11 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
 
         var article = differ.currentList[position]
+
+        if (position == itemCount - 1) {
+            onBottomReachedListener?.onBottomReached(position)
+        }
+
 
         holder.itemView.apply {
             Glide.with(this)
@@ -47,6 +53,14 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     override fun getItemCount(): Int {
         return differ.currentList.size
+    }
+
+    interface OnBottomReachedListener {
+        fun onBottomReached(position: Int)
+    }
+
+    fun setOnBottomReachedListener(onBottomReachedListener: OnBottomReachedListener?) {
+        this.onBottomReachedListener = onBottomReachedListener
     }
 
 
