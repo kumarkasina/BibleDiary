@@ -3,6 +3,8 @@ package com.example.jesusapp.di.module
 import android.content.Context
 import androidx.room.Room
 import com.example.jesusapp.db.BibleDataBase
+import com.example.jesusapp.db.DiaryDao
+import com.example.jesusapp.db.PrayerDao
 import com.example.jesusapp.db.UserDao
 
 import dagger.Module
@@ -31,6 +33,18 @@ class PersistenceModule {
     @Provides
     fun provideUserDao(userDatabase: BibleDataBase): UserDao {
         return userDatabase.userDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideDiaryDao(userDatabase: BibleDataBase): DiaryDao {
+        return userDatabase.diaryDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providePrayerDao(userDatabase: BibleDataBase): PrayerDao {
+        return userDatabase.prayerDao()
     }
 
 }

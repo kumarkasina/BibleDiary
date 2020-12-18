@@ -1,4 +1,4 @@
-package com.example.jesusapp.ui.BiblePage
+package com.example.jesusapp.ui.biblePage
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -14,12 +14,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jesusapp.R
-import com.example.jesusapp.data.model.Users
+import com.example.jesusapp.data.model.DairyCategoriesModelItem
 import com.example.jesusapp.data.remote.MainActivityViewState
-import com.example.jesusapp.db.UserDao
+import com.example.jesusapp.db.DiaryDao
 import com.example.jesusapp.listener.OnItemClickListener
-import com.example.jesusapp.ui.HomeDetail.HomeAdapter2
-import com.example.jesusapp.ui.home.SharedHomeViewModel
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_bible.*
 import kotlinx.android.synthetic.main.activity_prayer_detail.horizontal_recycler
@@ -32,55 +31,59 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BibleActivity : AppCompatActivity(), OnItemClickListener<Users>,DatePickerDialog.OnDateSetListener {
+class BibleActivity : AppCompatActivity(), OnItemClickListener<DairyCategoriesModelItem>,
+    DatePickerDialog.OnDateSetListener {
 
     @Inject
-    lateinit var usersDao: UserDao
-    lateinit var adapter : HomeAdapter2
-    val viewModel: SharedHomeViewModel by viewModels()
+    lateinit var usersDao: DiaryDao
 
-    lateinit var date : String
+    lateinit var adapter: BiblePageAdapter
+    val viewModel: BiblePageViewModel by viewModels()
+
+    lateinit var date: String
     val formatter = SimpleDateFormat("dd-MM-yyyy")
-     var calendar = Calendar.getInstance()
+    var calendar = Calendar.getInstance()
     var day = 0
     var month: Int = 0
     var year: Int = 0
 
     private lateinit var mediaPlayer: MediaPlayer
-    private var pause:Boolean = false
+    private var pause: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bible)
+
         txt_marq1.setSelected(true)
-        mediaPlayer= MediaPlayer()
+        mediaPlayer = MediaPlayer()
+
+        initialUiState()
         observeViewState()
         observeUsersInDatabase()
         uparrow.setOnClickListener(View.OnClickListener {
 
-        BottomSheetFragment.newInstance("బిగ్Cబాస్ : అఖిల్పై రాహుల్ షాకింగ్ కామెంట్స్ నటుల మధ్య" +
-                    " చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు").show(supportFragmentManager, "Bootomsheet")
+            BottomSheetFragment.newInstance(
+                "బిగ్Cబాస్ : అఖిల్పై రాహుల్ షాకింగ్ కామెంట్స్ నటుల మధ్య" +
+                        " చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు"
+            ).show(supportFragmentManager, "Bootomsheet")
         })
-
-
         changeDate()
         //prepareMediaPlayer()
 
         img_left.setOnClickListener(View.OnClickListener {
 
 
-
             calendar.add(Calendar.DATE, -1)
             date = formatter.format(calendar.time)
-            txt_date.text =date
+            txt_date.text = date
 
         })
         img_right.setOnClickListener(View.OnClickListener {
 
             calendar.add(Calendar.DATE, 1)
             date = formatter.format(calendar.time)
-            txt_date.text =date
+            txt_date.text = date
         })
         img_date.setOnClickListener(View.OnClickListener {
 
@@ -89,12 +92,12 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<Users>,DatePicker
             day = calendar.get(Calendar.DAY_OF_MONTH)
 
             val datePickerDialog =
-                DatePickerDialog(this, this, year, month,day)
+                DatePickerDialog(this, this, year, month, day)
 
 
             datePickerDialog.show()
         })
-        img_share.setOnClickListener{
+        img_share.setOnClickListener {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, prayer_text.text)
@@ -124,25 +127,23 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<Users>,DatePicker
             )
             mediaPlayer.prepareAsync()
 
-        }catch (e:Exception){
-                e.printStackTrace()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
     private fun changeDate() {
         calendar = Calendar.getInstance()
-         date = formatter.format(calendar.time)
-        txt_date.text =date
+        date = formatter.format(calendar.time)
+        txt_date.text = date
 
     }
 
-    private fun  observeViewState()
-    {
+    private fun observeViewState() {
 
-        viewModel.state.observe(this,  Observer { state ->
-            when(state){
+        viewModel.state.observe(this, Observer { state ->
+            when (state) {
                 is MainActivityViewState.ShowLoading -> {
-                    initialUiState()
 
                 }
                 is MainActivityViewState.ShowError -> {
@@ -156,23 +157,23 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<Users>,DatePicker
 
     private fun initialUiState() {
 
-        adapter = HomeAdapter2(this,1)
+        adapter = BiblePageAdapter(this, 1)
         horizontal_recycler.adapter = adapter
-        horizontal_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
-
-
+        horizontal_recycler.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
-    fun observeUsersInDatabase(){
+
+    private fun observeUsersInDatabase() {
         CoroutineScope(Dispatchers.Main).launch {
-            usersDao.getAllUsersDistinctUntilChanged().collect { users ->
+            usersDao.getAllCategDistinctUntilChanged().collect { users ->
                 showData(users)
                 Log.e("count", "1")
             }
         }
     }
 
-    private fun showData(data: List<Users>) {
-        Log.e("size", "${data.size}")
+    private fun showData(data: List<DairyCategoriesModelItem>) {
+        //Log.e("size", "${data.size}")
         horizontal_recycler.visibility = View.VISIBLE
         adapter.submitList(data)
     }
@@ -187,8 +188,8 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<Users>,DatePicker
     }
 
 
-    override fun onItemClick(item: Users, position: Int) {
-        prayer_text.text = item?.first_name
+    override fun onItemClick(item: DairyCategoriesModelItem, position: Int) {
+        prayer_text.text = item?.name
     }
 
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
@@ -198,8 +199,6 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<Users>,DatePicker
         calendar.set(Calendar.MONDAY, p2)
         calendar.set(Calendar.DAY_OF_MONTH, p3)
         txt_date.text = formatter.format(calendar.time)
-
-
     }
 
     override fun onDestroy() {

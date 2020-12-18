@@ -1,4 +1,4 @@
-package com.example.jesusapp.ui.home
+package com.example.jesusapp.ui.biblePage
 
 import android.app.Application
 import android.content.Context
@@ -11,10 +11,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.jesusapp.MyApplication
-import com.example.jesusapp.data.model.Users
+import com.example.jesusapp.data.model.DairyCategoriesModelItem
 import com.example.jesusapp.data.remote.Apis
 import com.example.jesusapp.data.remote.MainActivityViewState
-import com.example.jesusapp.db.UserDao
+import com.example.jesusapp.db.DiaryDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -23,50 +23,43 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
-class SharedHomeViewModel @ViewModelInject constructor(
-    private val apis: Apis,
-    val userDao: UserDao,
+class BiblePageViewModel @ViewModelInject constructor(
+    val apis: Apis,
+    val dao: DiaryDao,
     app: Application
 ) : AndroidViewModel(app) {
 
     private val _state: MutableLiveData<MainActivityViewState> = MutableLiveData()
     val state: LiveData<MainActivityViewState> = _state
 
-    var list = MutableLiveData<List<Users>>()
-
+    var list = MutableLiveData<List<DairyCategoriesModelItem>>()
 
     init {
-        _state.postValue(MainActivityViewState.ShowLoading)
         getData()
     }
 
-
     private fun getData() {
-
-       viewModelScope.launch {
-            withContext(Dispatchers.IO)
-            {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
                 if (hasInternetConnection()) {
-                    flowOf(apis.getData()).catch { throwable ->
+                    flowOf(apis.getCategoryDiaryData()).catch { throwable ->
                         _state.postValue(
                             MainActivityViewState.ShowError(
                                 throwable
                             )
                         )
                     }.map { result ->
-                        if (!result.data.isNullOrEmpty()) {
-                            userDao.deleteAllUsers()
-                            userDao.insertUsers(result.data)
+                        if (!result.body().isNullOrEmpty()) {
+                            dao.deleteAllUsers()
+                            result?.body()?.toList()?.let { dao.insertCatergories(it) }
                         }
                     }.collect()
                 }
-
-
             }
-       }
+        }
 
     }
+
 
     fun hasInternetConnection(): Boolean {
 
@@ -88,6 +81,5 @@ class SharedHomeViewModel @ViewModelInject constructor(
         }
         return false
     }
-
 
 }

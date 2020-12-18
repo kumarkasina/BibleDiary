@@ -1,11 +1,15 @@
 package com.example.jesusapp.data.remote
 
+import com.example.jesusapp.data.model.DairyCategoriesModel
 import com.example.jesusapp.data.model.DataModel
+import com.example.jesusapp.data.model.HomeDataModel1
+import com.example.jesusapp.data.model.PrayerModel
 import com.example.jesusapp.data.remote.response.MovieData
 import com.example.jesusapp.data.remote.response.MovieListResponse
 import com.example.jesusapp.ui.latestnews.NewsResponseModel
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -32,6 +36,15 @@ interface Apis {
         @Query("apiKey")
         apiKey: String = "7398c82f79f64bb8b68fd55fcca2c9ae"
     ): Response<NewsResponseModel>
+
+    @POST("/featureslist")
+    suspend fun getHomePageData(): Response<HomeDataModel1>
+
+    @POST("/dairycategories")
+    suspend fun getCategoryDiaryData(): Response<DairyCategoriesModel>
+
+    @POST("/prayercategories")
+    suspend fun getPrayersData(): Response<PrayerModel>
 
 
 }

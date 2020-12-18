@@ -24,7 +24,7 @@
             android:theme="@style/noactionbar.NoActionBar" />
         <activity android:name=".ui.DonorsList.DonorsActivity" />
         <activity android:name=".ui.QrCode.QRCodeActivity" />
-        <activity android:name=".ui.BiblePage.BibleActivity" />
+        <activity android:name=".ui.biblePage.BibleActivity" />
         <activity android:name=".ui.DiaryActivity" />
         <activity android:name=".ui.SplashScreen.SpalshAcitvity">
             <intent-filter>

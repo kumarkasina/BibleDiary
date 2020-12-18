@@ -11,7 +11,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.jesusapp.MyApplication
-import com.example.jesusapp.data.model.Users
+import com.example.jesusapp.data.model.HomeDataModel1Item
+
+
 import com.example.jesusapp.data.remote.Apis
 import com.example.jesusapp.data.remote.MainActivityViewState
 import com.example.jesusapp.db.UserDao
@@ -23,48 +25,45 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
-class SharedHomeViewModel @ViewModelInject constructor(
-    private val apis: Apis,
-    val userDao: UserDao,
-    app: Application
+class HomePageViewModel @ViewModelInject constructor(
+    val apis: Apis,
+    val userDao: UserDao, app: Application
 ) : AndroidViewModel(app) {
 
     private val _state: MutableLiveData<MainActivityViewState> = MutableLiveData()
     val state: LiveData<MainActivityViewState> = _state
 
-    var list = MutableLiveData<List<Users>>()
-
+    var list = MutableLiveData<List<HomeDataModel1Item>>()
 
     init {
         _state.postValue(MainActivityViewState.ShowLoading)
-        getData()
+        getHomePageData()
     }
 
+    private fun getHomePageData() {
 
-    private fun getData() {
-
-       viewModelScope.launch {
+        viewModelScope.launch {
             withContext(Dispatchers.IO)
             {
                 if (hasInternetConnection()) {
-                    flowOf(apis.getData()).catch { throwable ->
+                    flowOf(apis.getHomePageData()).catch { throwable ->
                         _state.postValue(
                             MainActivityViewState.ShowError(
                                 throwable
                             )
                         )
                     }.map { result ->
-                        if (!result.data.isNullOrEmpty()) {
-                            userDao.deleteAllUsers()
-                            userDao.insertUsers(result.data)
+                        if (!result.body().isNullOrEmpty()) {
+                            userDao.deleteAllFeatures()
+                            result?.body()?.toList()?.let { userDao.insertHomePag1(it) }
+
                         }
                     }.collect()
                 }
 
 
             }
-       }
+        }
 
     }
 

@@ -1,4 +1,4 @@
-package com.example.jesusapp.ui.BiblePage
+package com.example.jesusapp.ui.biblePage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.jesusapp.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.activity_bible.*
 import kotlinx.android.synthetic.main.bottomsheettext.*
 
 class BottomSheetFragment(val texts : String) :  BottomSheetDialogFragment() {
