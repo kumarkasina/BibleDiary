@@ -73,4 +73,9 @@ class BiblePageAdapter(
 
     }
 
+    fun setData(): Unit {
+
+        // onItemClickListener.onItemClick(getItem(0),0)
+    }
+
 }

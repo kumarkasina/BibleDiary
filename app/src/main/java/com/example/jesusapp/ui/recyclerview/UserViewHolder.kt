@@ -17,7 +17,7 @@ class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
             .with(itemView)
             .load(user.avatar)
             .centerCrop()
-            .into(itemView.img_icon);
+            .into(itemView.img_icon)
     }
 
 }

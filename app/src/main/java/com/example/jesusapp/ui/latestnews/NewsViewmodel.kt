@@ -32,12 +32,12 @@ class NewsViewmodel @ViewModelInject public constructor(
                 Result.Status.SUCCESS -> {
                     // list.postValue(result.data?.articles)
 
-                    result.data?.articles?.let {
+                    result.data?.let {
                         if (loadType == LoadType.INIT) {
                             // if (it.size == 0)
                             //message.postValue("No Task Found")
                         } else {
-                            pageNumber++
+                            // pageNumber++
                             if (list.value != null) {
                                 it.addAll(0, list.value!!)
                             }
@@ -65,7 +65,7 @@ class NewsViewmodel @ViewModelInject public constructor(
 
     private fun apiInput(): Int {
         if (loadType == LoadType.LOADMORE)
-            return pageNumber + 1
+            return pageNumber + 10
         else
             return pageNumber
 

@@ -1,9 +1,8 @@
-package com.example.jesusapp.ui.latestnews
+package com.example.jesusapp.ui.programs
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,14 +12,13 @@ import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.android.synthetic.main.header.*
 
 @AndroidEntryPoint
-class NewsActivity : AppCompatActivity(), NewsAdapter.OnBottomReachedListener {
+class ProgramActivity : AppCompatActivity(), ProgramAdapter.OnBottomReachedListener {
 
-    lateinit var adapter: NewsAdapter
-    val viewmodel: NewsViewmodel by viewModels()
-
+    lateinit var adapter: ProgramAdapter
+    val viewmodel: ProgramViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_news)
+        setContentView(R.layout.activity_program)
 
         initData()
 
@@ -29,16 +27,16 @@ class NewsActivity : AppCompatActivity(), NewsAdapter.OnBottomReachedListener {
         viewmodel.showLoader.observe(this, {
             Log.e("it", "$it")
             if (it) {
-                progressBar1.visibility = VISIBLE
+                progressBar1.visibility = View.VISIBLE
             } else {
-                progressBar1.visibility = GONE
+                progressBar1.visibility = View.GONE
             }
         })
 
     }
 
     private fun initData() {
-        adapter = NewsAdapter()
+        adapter = ProgramAdapter()
         recy_news.adapter = adapter
         recy_news.layoutManager = LinearLayoutManager(this)
         adapter.setOnBottomReachedListener(this)

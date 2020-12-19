@@ -3,16 +3,19 @@ package com.example.jesusapp.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.jesusapp.data.model.DairyCategoriesModelItem
 import com.example.jesusapp.data.model.HomeDataModel1Item
 import com.example.jesusapp.data.model.PrayerModelItem
 import com.example.jesusapp.data.model.Users
 
 @Database(
-    entities = [(Users::class), (HomeDataModel1Item::class), (DairyCategoriesModelItem::class), (PrayerModelItem::class)],
+    entities = [(Users::class), (HomeDataModel1Item::class), (DairyCategoriesModelItem::class),
+        (PrayerModelItem::class)],
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class BibleDataBase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

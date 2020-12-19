@@ -79,7 +79,7 @@ class SettingsFragment : Fragment(), OnItemClickListener<HomeDataModel1Item> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.pageno = 1;
         observeViewState()
         observeUsersInDatabase()
 
@@ -109,7 +109,7 @@ class SettingsFragment : Fragment(), OnItemClickListener<HomeDataModel1Item> {
         CoroutineScope(Dispatchers.Main).launch {
             usersDao.getAllFeaturesDistinctUntilChanged().collect { users ->
                 showData(users)
-                Log.e("count", "1")
+                Log.e("count", "1=>" + users.size)
             }
         }
     }
@@ -175,13 +175,13 @@ class SettingsFragment : Fragment(), OnItemClickListener<HomeDataModel1Item> {
         if (position == 0) {
             val intent = Intent(activity, BibleActivity::class.java)
             startActivity(intent)
-        } else if (position == 2) {
+        } else if (position == 3) {
             val intent = Intent(activity, AboutAcitvity::class.java)
             startActivity(intent)
-        } else if (position == 3) {
+        } else if (position == 4) {
             val intent = Intent(activity, DirectorsActivity::class.java)
             startActivity(intent)
-        } else if (position == 4) {
+        } else if (position == 7) {
             val intent = Intent(activity, NewsActivity::class.java)
             startActivity(intent)
         } else {

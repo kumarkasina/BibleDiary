@@ -9,7 +9,9 @@ data class PrayerModelItem(
     val created_at: String,
     val icon: String,
     val name: String,
-    val status: String,
+    val status: Int,
     val updated_at: String,
-    var selected: Boolean
+    var selected: Boolean,
+    val type: String,
+    val prayer: ArrayList<PrayerDetailModelsItem>
 )

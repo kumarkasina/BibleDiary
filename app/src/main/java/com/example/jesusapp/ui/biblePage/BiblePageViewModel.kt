@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -34,15 +35,17 @@ class BiblePageViewModel @ViewModelInject constructor(
 
     var list = MutableLiveData<List<DairyCategoriesModelItem>>()
 
-    init {
-        getData()
-    }
+    /* init {
+         getData( )
+     }*/
 
-    private fun getData() {
+
+    public fun getData(date: String) {
+        Log.e("date", "" + date)
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 if (hasInternetConnection()) {
-                    flowOf(apis.getCategoryDiaryData()).catch { throwable ->
+                    flowOf(apis.getCategoryDiaryData(date)).catch { throwable ->
                         _state.postValue(
                             MainActivityViewState.ShowError(
                                 throwable

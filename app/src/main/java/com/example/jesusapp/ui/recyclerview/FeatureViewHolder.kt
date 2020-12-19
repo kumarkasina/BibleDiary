@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.jesusapp.data.model.HomeDataModel1Item
+import com.example.jesusapp.utils.ConstantValues
 
 import kotlinx.android.synthetic.main.home_item.view.*
 
@@ -16,7 +17,7 @@ class FeatureViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         Glide
             .with(itemView)
-            .load("https://7873fc0cc37c.ngrok.io/" + user.image)
+            .load(ConstantValues.BASE_URL + user.image)
             .centerCrop()
             .into(itemView.img_icon);
     }

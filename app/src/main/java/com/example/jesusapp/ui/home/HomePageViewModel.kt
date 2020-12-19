@@ -34,6 +34,7 @@ class HomePageViewModel @ViewModelInject constructor(
     val state: LiveData<MainActivityViewState> = _state
 
     var list = MutableLiveData<List<HomeDataModel1Item>>()
+    var pageno: Int = 0;
 
     init {
         _state.postValue(MainActivityViewState.ShowLoading)
@@ -45,20 +46,24 @@ class HomePageViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO)
             {
-                if (hasInternetConnection()) {
-                    flowOf(apis.getHomePageData()).catch { throwable ->
-                        _state.postValue(
-                            MainActivityViewState.ShowError(
-                                throwable
+                if (pageno == 1) {
+                    if (hasInternetConnection()) {
+                        flowOf(apis.getHomePageData()).catch { throwable ->
+                            _state.postValue(
+                                MainActivityViewState.ShowError(
+                                    throwable
+                                )
                             )
-                        )
-                    }.map { result ->
-                        if (!result.body().isNullOrEmpty()) {
-                            userDao.deleteAllFeatures()
-                            result?.body()?.toList()?.let { userDao.insertHomePag1(it) }
+                        }.map { result ->
+                            if (!result.body().isNullOrEmpty()) {
+                                userDao.deleteAllFeatures()
+                                result?.body()?.toList()?.let { userDao.insertHomePag1(it) }
 
-                        }
-                    }.collect()
+                            }
+                        }.collect()
+                    }
+                } else {
+                    flowOf(userDao.get2AllFeatures()).collect()
                 }
 
 

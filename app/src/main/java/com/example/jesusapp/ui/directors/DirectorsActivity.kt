@@ -29,9 +29,7 @@ class DirectorsActivity : AppCompatActivity(), OnItemClickListener<Users> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_directors)
-
         initData()
-
     }
 
     private fun initData() {

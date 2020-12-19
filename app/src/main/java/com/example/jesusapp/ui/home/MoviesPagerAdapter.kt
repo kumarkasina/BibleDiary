@@ -45,8 +45,8 @@ class MoviesPagerAdapter(fragmentManager: FragmentManager, private val movies: A
   override fun getItem(position: Int): Fragment {
       if (position == 0)
           return SettingsFragment()
-      /* else if(position ==1)
-         return Settings2Fragment()*/
+      else if (position == 1)
+          return Settings2Fragment()
 
       return SettingsFragment()
   }

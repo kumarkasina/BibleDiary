@@ -42,10 +42,12 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<DairyCategoriesMo
 
     lateinit var date: String
     val formatter = SimpleDateFormat("dd-MM-yyyy")
+    val api_formatter = SimpleDateFormat("yyyy-MM-dd")
     var calendar = Calendar.getInstance()
     var day = 0
     var month: Int = 0
     var year: Int = 0
+    var clickedString: String = ""
 
     private lateinit var mediaPlayer: MediaPlayer
     private var pause: Boolean = false
@@ -64,8 +66,7 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<DairyCategoriesMo
         uparrow.setOnClickListener(View.OnClickListener {
 
             BottomSheetFragment.newInstance(
-                "బిగ్Cబాస్ : అఖిల్పై రాహుల్ షాకింగ్ కామెంట్స్ నటుల మధ్య" +
-                        " చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు చిచ్చుపెట్టిన గ్రేటర్ పోరు"
+                clickedString
             ).show(supportFragmentManager, "Bootomsheet")
         })
         changeDate()
@@ -78,12 +79,18 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<DairyCategoriesMo
             date = formatter.format(calendar.time)
             txt_date.text = date
 
+            viewModel.getData(api_formatter.format(calendar.time))
+            //adapter.setData()
+
+
         })
         img_right.setOnClickListener(View.OnClickListener {
 
             calendar.add(Calendar.DATE, 1)
             date = formatter.format(calendar.time)
             txt_date.text = date
+            viewModel.getData(api_formatter.format(calendar.time))
+            // adapter.setData()
         })
         img_date.setOnClickListener(View.OnClickListener {
 
@@ -137,6 +144,15 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<DairyCategoriesMo
         date = formatter.format(calendar.time)
         txt_date.text = date
 
+        //  viewModel.getData(api_formatter.format(calendar.time))
+        try {
+            Log.e("date", "" + api_formatter.format(calendar.time))
+            viewModel.getData(api_formatter.format(calendar.time))
+            //adapter.setData()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     private fun observeViewState() {
@@ -144,7 +160,7 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<DairyCategoriesMo
         viewModel.state.observe(this, Observer { state ->
             when (state) {
                 is MainActivityViewState.ShowLoading -> {
-
+                    Log.e("========", "==========")
                 }
                 is MainActivityViewState.ShowError -> {
 
@@ -167,7 +183,8 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<DairyCategoriesMo
         CoroutineScope(Dispatchers.Main).launch {
             usersDao.getAllCategDistinctUntilChanged().collect { users ->
                 showData(users)
-                Log.e("count", "1")
+                Log.e("count", "=" + users.size)
+                adapter.setData()
             }
         }
     }
@@ -189,7 +206,11 @@ class BibleActivity : AppCompatActivity(), OnItemClickListener<DairyCategoriesMo
 
 
     override fun onItemClick(item: DairyCategoriesModelItem, position: Int) {
-        prayer_text.text = item?.name
+        prayer_text.text = item?.message
+        txt_heading.text = item?.heading
+        clickedString = item?.message
+        // adapter.notifyItemChanged(position)
+        //  viewModel.getData(api_formatter.format(calendar.time))
     }
 
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {

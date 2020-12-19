@@ -7,5 +7,6 @@ class MovieListRepo constructor(val remotesource: MovieListDataSource){
     suspend fun getMovieDetails( id:Int ) = remotesource.getMovieDetails(id)
     suspend fun getUsersData() = remotesource.getUsersListData()
     suspend fun getNewsData(page: Int) = remotesource.getNewsListData(page)
+    suspend fun getProgramData(page: Int) = remotesource.getProgramListData(page)
 
 }

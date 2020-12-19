@@ -10,12 +10,14 @@
         android:name=".MyApplication"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/noactionbar">
-        <activity android:name=".ui.directors.ShowDirector"></activity>
+        <activity android:name=".ui.programs.ProgramActivity"></activity>
+        <activity android:name=".ui.directors.ShowDirector" />
         <activity android:name=".ui.latestnews.NewsActivity" />
         <activity android:name=".ui.directors.DirectorsActivity" />
         <activity

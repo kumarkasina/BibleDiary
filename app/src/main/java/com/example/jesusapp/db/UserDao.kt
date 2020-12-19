@@ -16,8 +16,11 @@ abstract class UserDao {
     @Query("SELECT * FROM Users")
     abstract fun getAllUsers(): Flow<List<Users>>
 
-    @Query("SELECT * FROM Features")
+    @Query("SELECT * FROM Features where display_page_no = 1")
     abstract fun getAllFeatures(): Flow<List<HomeDataModel1Item>>
+
+    @Query("SELECT * FROM Features where display_page_no = 2")
+    abstract fun get2AllFeatures(): Flow<List<HomeDataModel1Item>>
 
     @Query("SELECT * FROM Users")
     abstract suspend fun getAllUsers2(): List<Users>
@@ -45,6 +48,10 @@ abstract class UserDao {
     @ExperimentalCoroutinesApi
     fun getAllFeaturesDistinctUntilChanged() =
         getAllFeatures().distinctUntilChanged()
+
+    @ExperimentalCoroutinesApi
+    fun get2AllFeaturesDistinctUntilChanged() =
+        get2AllFeatures().distinctUntilChanged()
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

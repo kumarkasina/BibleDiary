@@ -12,12 +12,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.jesusapp.R
-import com.example.jesusapp.data.model.Users
+import com.example.jesusapp.data.model.HomeDataModel1Item
 import com.example.jesusapp.data.remote.MainActivityViewState
 import com.example.jesusapp.db.UserDao
 import com.example.jesusapp.listener.OnItemClickListener
 import com.example.jesusapp.ui.DonorsList.DonorsActivity
 import com.example.jesusapp.ui.QrCode.QRCodeActivity
+import com.example.jesusapp.ui.latestnews.NewsActivity
+import com.example.jesusapp.ui.programs.ProgramActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.coroutines.CoroutineScope
@@ -38,14 +40,14 @@ private const val ARG_PARAM2 = "param2"
  */
 
 @AndroidEntryPoint
-class Settings2Fragment : Fragment(),OnItemClickListener<Users>{
+class Settings2Fragment : Fragment(), OnItemClickListener<HomeDataModel1Item> {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    val viewModel: SharedHomeViewModel by viewModels()
+    val viewModel: HomePageViewModel by viewModels()
 
-    lateinit var adapter : HomeAdapter
+    lateinit var adapter: HomePageAdapter
 
     @Inject
     lateinit var usersDao: UserDao
@@ -83,7 +85,7 @@ class Settings2Fragment : Fragment(),OnItemClickListener<Users>{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.pageno = 2
         observeViewState()
         observeUsersInDatabase()
 
@@ -111,9 +113,9 @@ class Settings2Fragment : Fragment(),OnItemClickListener<Users>{
 
     private fun observeUsersInDatabase() {
         CoroutineScope(Dispatchers.Main).launch {
-            usersDao.getAllUsersDistinctUntilChanged().collect {
-                    users -> showData(users)
-                    Log.e("count","1")
+            usersDao.get2AllFeaturesDistinctUntilChanged().collect { users ->
+                showData(users)
+                Log.e("count", "1")
             }
         }
     }
@@ -121,7 +123,7 @@ class Settings2Fragment : Fragment(),OnItemClickListener<Users>{
     private fun initialUiState(){
         progress_circular.visibility = View.GONE
         menu_list.visibility = View.GONE
-        adapter = HomeAdapter(this,0)
+        adapter = HomePageAdapter(this, 0)
         menu_list.adapter = adapter
         menu_list.layoutManager = GridLayoutManager(activity,2)
         menu_list.setHasFixedSize(true)
@@ -130,7 +132,7 @@ class Settings2Fragment : Fragment(),OnItemClickListener<Users>{
         progress_circular.visibility = View.VISIBLE
     }
 
-    private fun showData(data: List<Users>) {
+    private fun showData(data: List<HomeDataModel1Item>) {
         removeProgressDialog()
         menu_list.visibility = View.VISIBLE
 
@@ -174,16 +176,24 @@ class Settings2Fragment : Fragment(),OnItemClickListener<Users>{
 
     }
 
-    override fun onItemClick(item: Users, position: Int) {
+    override fun onItemClick(item: HomeDataModel1Item, position: Int) {
         Log.e("clicked", "$position")
-        if (position == 0) {
+        if (position == 1) {
             val intent = Intent(activity, QRCodeActivity::class.java)
             startActivity(intent)
-        } else if (position == 1) {
+        } else if (position == 0) {
 
             val intent = Intent(activity, DonorsActivity::class.java)
             startActivity(intent)
         } else if (position == 2) {
+
+            val intent = Intent(activity, NewsActivity::class.java)
+            startActivity(intent)
+        } else if (position == 3) {
+
+            val intent = Intent(activity, ProgramActivity::class.java)
+            startActivity(intent)
+        } else if (position == 4) {
 
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND

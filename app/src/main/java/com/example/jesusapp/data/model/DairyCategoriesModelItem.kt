@@ -11,5 +11,13 @@ data class DairyCategoriesModelItem(
     val name: String,
     val status: Int,
     val updated_at: String,
-    var selected: Boolean
+    val icon: String,
+    var selected: Boolean,
+    val type: String,
+    val heading: String,
+    val message: String,
+    val date: String,
+    val audio: String
+
+
 )

@@ -5,16 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.jesusapp.R
-import com.example.jesusapp.data.model.Users
+import com.example.jesusapp.data.model.PrayerDetailModelsItem
 import com.example.jesusapp.listener.OnExpandListener
-import com.example.jesusapp.listener.OnItemClickListener
-import com.example.jesusapp.ui.recyclerview.UserViewHolder
 import kotlinx.android.synthetic.main.row_prayer.view.*
 
-class PrayerDetailAdapter(onexpandlistener : OnExpandListener<PrayerDetailModel>): ListAdapter<PrayerDetailModel,
-        PrayerDetailViewHolder>(PrayerItemDiffCallback()) {
+class PrayerDetailAdapter(onexpandlistener: OnExpandListener<PrayerDetailModelsItem>) :
+    ListAdapter<PrayerDetailModelsItem,
+            PrayerDetailViewHolder>(PrayerItemDiffCallback()) {
 
-    val onexpandlistener : OnExpandListener<PrayerDetailModel> = onexpandlistener
+    val onexpandlistener: OnExpandListener<PrayerDetailModelsItem> = onexpandlistener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrayerDetailViewHolder {
         return PrayerDetailViewHolder(
             LayoutInflater.from(parent.context)
@@ -40,18 +39,17 @@ class PrayerDetailAdapter(onexpandlistener : OnExpandListener<PrayerDetailModel>
 
 
         holder.itemView.setOnClickListener(View.OnClickListener {
-           var prayerDetailModel:PrayerDetailModel =getItem(position)
+            var prayerDetailModel: PrayerDetailModelsItem = getItem(position)
 
 
-            if(getItem(position).expanded){
-                prayerDetailModel.expanded=false
+            if (getItem(position).expanded) {
+                prayerDetailModel.expanded = false
                 holder.itemView.img_arrow.setImageResource(R.drawable.up_arrow)
-                holder.itemView.underlayout.visibility=View.GONE
-            }else
-            {
-                prayerDetailModel.expanded=true
+                holder.itemView.underlayout.visibility = View.GONE
+            } else {
+                prayerDetailModel.expanded = true
                 holder.itemView.img_arrow.setImageResource(R.drawable.down_arrow)
-                holder.itemView.underlayout.visibility=View.VISIBLE
+                holder.itemView.underlayout.visibility = View.VISIBLE
 
             }
             notifyItemChanged(position)
