@@ -43,7 +43,7 @@ class DirectorsActivity : AppCompatActivity(), OnItemClickListener<Users> {
         donorsViewmodel.pageNumber = 1
         donorsViewmodel.getUserData(page = donorsViewmodel.pageNumber)
         donorsViewmodel.list.observe(this, {
-            adapter.submitList(it)
+        //    adapter.submitList(it)
         })
 
     }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,25 +9,71 @@
     android:background="@drawable/roudedbackground"
    >
 
-    <ImageView
-        android:id="@+id/img_icon"
-        android:layout_gravity="center"
-        android:layout_width="45dp"
-        android:layout_height="60dp"
-        android:src="@drawable/droid_runner"
-        ></ImageView>
-
+       <ImageView
+           android:id="@+id/img_icon"
+           android:layout_gravity="center"
+           android:layout_width="45dp"
+           android:layout_height="60dp"
+           android:src="@drawable/droid_runner" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_marginStart="10dp"
+    android:layout_height="wrap_content">
     <TextView
-
+        android:layout_weight="1"
         android:id="@+id/txt_tittle"
         android:layout_gravity="center"
-        android:gravity="center"
         android:text="@string/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+    <TextView
+         android:layout_weight="1"
+        android:id="@+id/txt_state"
+        android:text="@string/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></TextView>
-
-
-
-
+        android:layout_marginStart="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/txt_addres"
+            android:text="@string/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/txt_country"
+            android:text="@string/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/txt_designation"
+            android:text="@string/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/txt_mobile"
+            android:text="@string/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,9 +1,6 @@
 package com.example.jesusapp.data.remote
 
-import com.example.jesusapp.data.model.DairyCategoriesModel
-import com.example.jesusapp.data.model.DataModel
-import com.example.jesusapp.data.model.HomeDataModel1
-import com.example.jesusapp.data.model.PrayerModel
+import com.example.jesusapp.data.model.*
 import com.example.jesusapp.data.remote.response.MovieData
 import com.example.jesusapp.data.remote.response.MovieListResponse
 import com.example.jesusapp.ui.latestnews.NewsResponseModel
@@ -24,8 +21,15 @@ interface Apis {
     @GET("/api/users?page=2")
     suspend fun getData(): DataModel
 
-    @GET("/api/users?page=1")
-    suspend fun getDatas(): Response<DataModel>
+    @POST("donorlist")
+    suspend fun getDatas(
+        @Query("amount_sortby")
+        amount_sortby: String = "desc",
+        @Query("page_no")
+        page_no: Int = 0,
+        @Query("offset_limit")
+        offset_limit: Int = 10
+    ): Response<ArrayList<DonarModelItem>>
 
     @GET("/v2/top-headlines")
     suspend fun getNews(

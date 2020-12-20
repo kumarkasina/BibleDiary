@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.jesusapp.data.model.DonarModelItem
 import com.example.jesusapp.data.model.HomeDataModel1Item
 import com.example.jesusapp.data.model.Users
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -52,6 +53,4 @@ abstract class UserDao {
 
     @Query("SELECT * FROM Features")
     abstract suspend fun getHomeData1(): List<HomeDataModel1Item>
-
-
 }

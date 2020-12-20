@@ -10,44 +10,48 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.jesusapp.MyApplication
-import com.example.jesusapp.data.model.Users
+import com.example.jesusapp.data.model.DonarModelItem
 import com.example.jesusapp.data.remote.Result
 import com.example.jesusapp.data.repo.MovieListRepo
-import com.example.jesusapp.db.UserDao
+import com.example.jesusapp.db.DonarDao
+import com.example.jesusapp.utils.LoadType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DonorsViewmodel @ViewModelInject public constructor(
     val repo: MovieListRepo,
-    val userDao: UserDao,
+    val donarDao: DonarDao,
     app: Application
 ) : AndroidViewModel(app) {
 
-    var list = MutableLiveData<List<Users>>()
-    var pageNumber: Int = 1;
+    var list = MutableLiveData<ArrayList<DonarModelItem>>()
+    var pageNumber: Int = 0;
     var showLoader = MutableLiveData<Boolean>(true)
-
+    var loadType: LoadType = LoadType.INIT
     fun getUserData(page: Int) {
         if (hasInternetConnection()) {
             CoroutineScope(Dispatchers.IO).launch {
                 showLoader.postValue(true)
                 val result = repo.getUsersData()
-
+                print("hello ${result}")
                 when (result.status) {
                     Result.Status.SUCCESS -> {
-                        if (page == 1) {
-
-                            result.data?.data?.let { userDao.insertUsers(it) }
-
-                            list.postValue(result.data?.data)
-                        } else {
-                            //  list.value!!.add( result.data!!.data )
+                        result.data?.let {
+                            if (loadType == LoadType.INIT) {
+                                // if (it.size == 0)
+                                //message.postValue("No Task Found")
+                            } else {
+                                if (list.value != null) {
+                                    list.value!!.addAll(it )
+                                }
+                            }
+                            donarDao.insertDonars(it)
+                            list.postValue(it)
                         }
-                        // pageNumber++
-                        showLoader.postValue(false)
                     }
                     Result.Status.ERROR -> {
+                        Log.e("error", result.message.toString());
                     }
                 }
 
@@ -55,10 +59,9 @@ class DonorsViewmodel @ViewModelInject public constructor(
             }
         } else {
             CoroutineScope(Dispatchers.Main).launch {
-                Log.e("internet", "no");
                 showLoader.postValue(true)
-                list.postValue(userDao.getAllUsers2())
-                Log.e("size", "" + userDao.getAllUsers2()?.size)
+                 list.postValue(donarDao.getDonars() as ArrayList<DonarModelItem>)
+                Log.e("size", "" + donarDao.getDonars()?.size)
                 showLoader.postValue(false)
             }
 
@@ -84,5 +87,16 @@ class DonorsViewmodel @ViewModelInject public constructor(
             }
         }
         return false
+    }
+    fun loadMore() {
+        loadType = LoadType.LOADMORE
+        getUserData(apiInput())
+    }
+    private fun apiInput(): Int {
+        if (loadType == LoadType.LOADMORE)
+            return pageNumber + 10
+        else
+            return pageNumber
+
     }
 }

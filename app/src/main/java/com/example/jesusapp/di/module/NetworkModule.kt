@@ -13,6 +13,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -21,7 +22,7 @@ import javax.inject.Singleton
 class NetworkModule {
 
     @Provides
-    fun provideBaseUrl() = ConstantValues.BASE_URL
+    fun provideBaseUrl() = ConstantValues.BASE_URL2
 
     @Provides
     @Singleton
@@ -31,6 +32,9 @@ class NetworkModule {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
             OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                 .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15,TimeUnit.SECONDS)
                 .build()
         } else OkHttpClient
             .Builder()

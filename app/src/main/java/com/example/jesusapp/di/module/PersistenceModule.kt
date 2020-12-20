@@ -2,10 +2,7 @@ package com.example.jesusapp.di.module
 
 import android.content.Context
 import androidx.room.Room
-import com.example.jesusapp.db.BibleDataBase
-import com.example.jesusapp.db.DiaryDao
-import com.example.jesusapp.db.PrayerDao
-import com.example.jesusapp.db.UserDao
+import com.example.jesusapp.db.*
 
 import dagger.Module
 import dagger.Provides
@@ -45,6 +42,11 @@ class PersistenceModule {
     @Provides
     fun providePrayerDao(userDatabase: BibleDataBase): PrayerDao {
         return userDatabase.prayerDao()
+    }
+    @Singleton
+    @Provides
+    fun provideDonarDao(userDatabase: BibleDataBase): DonarDao {
+        return userDatabase.donarDao()
     }
 
 }
